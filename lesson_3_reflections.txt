@@ -3,3 +3,22 @@ git init  - creates a new git repository in either an empty directory or a direc
 git init starts without a first commit, just builds the initial structures
 
 git log on a git init (only no commits) produces the error "fatal: bad default revision 'HEAD'", so instead use git status 
+
+What happens when you initialize a repository?  Why do you need to do it?
+	It creates the structures git needs to track files in the directory managed by the repository.  Without this, nothing will be properly tracked.
+
+git reset <filename> - is used to remove a file from the repository which was accidentally added (removes from staging dir but still in working dir).
+
+three logical modes for a group of files in git:
+	working - true folder where all files are present
+	staging - logical folder where the files which are going to be commited are noted
+	repository - staged files are stored into a single transactional commit with the title offered with the commit
+
+ How is the staging area different from the working directory and the repository? What value do you think it offers?
+ 	Staging indicates which files will be involved in the next commit.  It allows one to determine which group of files will be involved logically together in the next commit.
+
+ git commit -m "Commit message" - stores items in staging area into repository as a transaction together with the title "Commit message"
+
+ git commit messaging style guide: http://udacity.github.io/git-styleguide/
+
+ 
