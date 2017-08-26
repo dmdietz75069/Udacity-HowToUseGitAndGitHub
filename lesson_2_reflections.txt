@@ -1,0 +1,12 @@
+commit 7be5a12f1567866b0d77ccdf2055d1a33831da78 (the top commit listed)
+
+Yes, probably contains the mute button.
+commit 06d72e1f95f046002ec46f41cf71957227111141 (the middle commit listed)
+
+Yes, probably contains the mute button.
+commit 3d4d45b246aad6a1cd0afaf7cfae26966110727e (the bottom commit listed)
+
+No, probably does not contain the mute button.
+
+Quiz 6 answer at the top, please change spacing so commit and yes/no line are together with space before next pair of commit and yes/no lines.  Your current spacing is confusing on what you are saying.
+

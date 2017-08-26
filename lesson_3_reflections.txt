@@ -1,0 +1,5 @@
+git init  - creates a new git repository in either an empty directory or a directory of files without git enabled
+
+git init starts without a first commit, just builds the initial structures
+
+git log on a git init (only no commits) produces the error "fatal: bad default revision 'HEAD'", so instead use git status 

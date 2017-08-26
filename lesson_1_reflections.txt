@@ -1,0 +1,126 @@
+https://classroom.udacity.com/courses/ud775
+
+diff -u game_old.js game_new.js
+
+link for Asteroids game: http://dougmcinnes.com/html-5-asteroids/
+
+link for reflections research: http://184.182.233.150/rid=1LW06D9V6-26428MK-1Z64/Mezirow's%20chapter,%20How%20Critical%20Refletion%20Triggers%20TL.pdf
+
+How did viewing a diff between two versions of the file help you see the bug that was introduced?
+	It highlighted the changes.
+
+How could having easy access to the entire history of a file make you more efficient?
+	It allows you to find the transition of the file over time and could help locate what lines contributed to bugs on specific dates.
+
+When to save?
+	When you choose to save a version
+
+User defined saves are called commits
+
+A good rule of thumb is to make one commit per logical change. For example, if you fixed a typo, then fixed a bug in a separate part of the file, you should use one commit for each change since they are logically separate. If you do this, each commit will have one purpose that can be easily understood. Git allows you to write a short message explaining what was changed in each commit, and that message will be more useful if each commit has a single logical change.
+
+What do you think are the pros and cons of manually choosing when to create a commit, like you do in Git, vs having versions automatically saved, like Google Docs does?
+	The biggest risks are saving a version when you have an incomplete fix or not saving versions frequently enough to go to a previous safe version.  Since you can create a branch to use during incomplete fixes and merge back to the trunk when you are done, then this higher resolution will add more safety net.  
+
+A repository is a group of files is called which are all versioned together.
+
+git log --stat			= shows the history of the repository along with an indication of how much change occurred with each.
+						= the versions are indicated by a long string like b0678b161fcf74467ed3a63110557e3d6229cfa6
+
+git diff <v1> <v2>		= shows details about the changes between two diff versions
+
+Why do you think some version control systems, like Git, allow saving multiple files in one commit, while others, like Google Docs, treat each file separately?
+	Different purposes, Google Docs is assuming the changes only affect a single file at a time, git assumes a change could affect multiple files at a time.
+
+git --version    		= shows the version of git you are using
+
+git clone <url>			= downloads a copy of the whole repository including its history
+git clone https://github.com/udacity/asteroids.git
+
+git config --global color.ui auto  	= adds color to command line version of git
+
+How can you use the commands git log and git diff to view the history of files?
+	Use git log -stat to see a summary of the changes and to get different version numbers
+	Use git diff to compare in detail different versions of files.
+
+Concept Map
+	type of
+	part of
+	operates on
+
+Octopus is a strategy git uses to combine many different versions of the code.
+Head is the latest version (usually the version you are on)
+Detached head is where you switch to the previous version of the code.
+
+git checkout does not equal svn checkout
+git checkout reverts all the files to a previous version (possibly temporarily)
+
+link to git troubleshooting guide: https://www.udacity.com/api/nodes/2960778953/supplemental_media/troubleshooting-guidepdf/download?_ga=1.71397332.672083044.1467344711
+
+How might using version control make you more confident to make changes that could break something?
+	You know that the risk is less to make change because you can always come back to the prior version and mistakes are easier to find.
+
+Setting up git bash on Windows
+	Setting Up Your Workspace On Windows
+		You can download .bash_profile_course here.  
+			link: https://www.udacity.com/api/nodes/3341718587/supplemental_media/bash-profile-course/download?_ga=1.37232743.672083044.1467344711
+
+	Changing background color
+		If you prefer the background color of Git Bash to be something other than black, you can change it in the "Defaults" menu under the "Colors" tab. If you like the background color as-is, you don't need to make any changes.
+
+	Downloading necessary files
+		Save this file in your home directory with the name git-completion.bash. 
+			link: https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
+		Save this file in your home directory with the name git-prompt.sh.  
+			link: https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
+		Download bash_profile_course from the Downloadables section.
+		If you already have a file in your home directory named .bash_profile, copy the content from bash_profile_course and paste it at the bottom of .bash_profile. Otherwise, move bash_profile_course to your home directory and rename it to .bash_profile. (If you're curious to learn more about how bash prompts work, see this page.)  http://www.cyberciti.biz/tips/howto-linux-unix-bash-shell-setup-prompt.html
+	
+	Making Git configurations
+		Run the following Git configuration commands. The first one will need to be modified if you are using a text editor other than Sublime, or if Sublime is installed in another location for you. See this page for the correct command for a couple of other popular text editors. For any other editor, you'll need to enter the command you use to launch that editor from Git Bash.  
+			link: https://help.github.com/articles/associating-text-editors-with-git/
+
+		git config --global core.editor "'C:/Program Files/Sublime Text 2/sublime_text.exe' -n -w"
+		git config --global push.default upstream
+		git config --global merge.conflictstyle diff3
+		
+	Make sure you can start your editor from Git Bash
+		If you use Sublime, you can do this by adding the following line to your .bash_profile:
+			alias subl="C:/Program\ Files/Sublime\ Text\ 2/sublime_text.exe"
+	
+	Restart Git Bash
+	You'll need to close and re-open Git Bash before all your changes take effect.
+
+
+Setting Up Your Workspace On Mac and Linux
+
+	Downloading necessary files
+		Save this file in your home directory with the name git-completion.bash. 
+			link: https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
+		Save this file in your home directory with the name git-prompt.sh.  
+			link: https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
+		Download bash_profile_course here.  
+			link: https://www.udacity.com/api/nodes/3341718587/supplemental_media/bash-profile-course/download?_ga=1.37232743.672083044.1467344711
+		If you already have a file in your home directory named .bash_profile, copy the content from bash_profile_course and paste it at the bottom of .bash_profile. Otherwise, move bash_profile_course to your home directory and rename it to .bash_profile. If you use Linux, you may need to name this file .bashrc instead of .bash_profile. (If you're curious to learn more about how bash prompts work, see this page.)
+
+	Make sure you can start your editor from the terminal
+		If you use Sublime, you can do this by add the following line to your .bash_profile (you may need to change the path if Sublime is installed in a different location for you):
+			alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
+
+	Making Git configurations
+		Run the following Git configuration commands. The first one will need to be modified if you are using a text editor other than Sublime, or if Sublime is installed in another location for you. See this page for the correct command for a couple of other popular text editors. For any other editor, you'll need to enter the command you use to launch that editor from the terminal.  
+			link: https://help.github.com/articles/associating-text-editors-with-git/
+
+		git config --global core.editor "'/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl' -n -w"
+		git config --global push.default upstream
+		git config --global merge.conflictstyle diff3
+		
+		(Instead of the first command, you may be able to use the simpler git config --global core.editor "subl -n -w" as shown in the video, but many students have found this does not work for them.)
+
+	Restart the terminal
+		You'll need to close and re-open the terminal before all your changes take effect.
+
+Now that you have your workspace set up, what do you want to try using Git for?
+	My projects
+
+Course survey after step 1: http://goo.gl/Kygr2N
