@@ -1,4 +1,4 @@
-git init  - creates a new git repository in either an empty directory or a directory of files without git enabled
+git init = creates a new git repository in either an empty directory or a directory of files without git enabled
 
 git init starts without a first commit, just builds the initial structures
 
@@ -7,7 +7,7 @@ git log on a git init (only no commits) produces the error "fatal: bad default r
 What happens when you initialize a repository?  Why do you need to do it?
 	It creates the structures git needs to track files in the directory managed by the repository.  Without this, nothing will be properly tracked.
 
-git reset <filename> - is used to remove a file from the repository which was accidentally added (removes from staging dir but still in working dir).
+git reset <filename> = is used to remove a file from the repository which was accidentally added (removes from staging dir but still in working dir).
 
 three logical modes for a group of files in git:
 	working - true folder where all files are present
@@ -17,8 +17,145 @@ three logical modes for a group of files in git:
  How is the staging area different from the working directory and the repository? What value do you think it offers?
  	Staging indicates which files will be involved in the next commit.  It allows one to determine which group of files will be involved logically together in the next commit.
 
- git commit -m "Commit message" - stores items in staging area into repository as a transaction together with the title "Commit message"
+ git commit -m "Commit message" = stores items in staging area into repository as a transaction together with the title "Commit message"
 
  git commit messaging style guide: http://udacity.github.io/git-styleguide/
 
- 
+ git diff  =  (with no arguments) will tell you the differences between working and staging directories
+ git diff --staged  =  will compare difference between latest commit and staging area
+
+ git checkout master = fixes detached HEAD (resets to actually last checking at the end of trunk)
+
+git reset --hard = discards any changes in either the working directory or the staging area
+
+How can you use the staging area to make sure you have one commit per logical change?
+	Review the changes made between the current staging values and last save to confirm that only one logical change was made before executing the next commit.  This can be done with git diff --staged
+
+git branch = no args - shows current branch name with master being the default name of trunk
+git branch <name> = creates a branch called <name>, but the star indicates that I currently still have my prior checked out branch checked out
+git checkout <name> = switches the current branch to <name> and checks it out (so check ins will go there)
+
+What are some situations when branches would be helpful in keeping your history organized? How would branches help?
+	Separate working streams from each other allowing for simultaneous experimentation with low risk and label each of these work streams.
+
+git checkout <name> = when gives response about "remote branch" means that this is a branch which someone else created
+
+merging is the process of reconnecting the changes made on a branch with the changes on trunk
+
+git log --graph --oneline <branch1> <branch2> = will graphically show the relationship between different branches 1 and 2 with only one line offered for each of the branches using optional flag --oneline
+
+actually this turns into a bug not shown in the video.  I had to research and find some more commmands to make this work because it did not show coins, see thread: https://discussions.udacity.com/t/were-is-saras-code-for-coin/159753/4
+git branch --list --all = was required to see the coins branch name
+git log --graph --oneline master origin/coins = was required to do what they said would work with git log --graph --online master coins 
+git log -20 --graph --oneline --decorate master origin/coins = was even more easily read
+
+for Lesson 3 "18: Quiz Branches for Collaboration", you have a bug.  I could not see coins or any branches at all or any symbols like "|/"  using the instructions offered.  But when I followed the forum https://discussions.udacity.com/t/were-is-saras-code-for-coin/159753/4 and specifically zjohnr on Mar16, then it resolved my problem.  Specifically "git log -20 --graph --oneline --decorate --all" or more specifically "git log -20 --graph --oneline --decorate master origin/coins" were the only ways to see coins or really any branches.  Even with this, I never saw a branch for easy-mode with the symbols like "|/", my commit was shown and I could switch in and out of of using branch command, but no "|/" symbols.
+
+This is what I saw:
+
+dave (master) asteroids $ git log -20 --graph --oneline --decorate --all
+* 8eb8fec (easy-mode) Made the game easier by making the number of asteroids created with each shot two instead of three
+* cdfa712 (HEAD, master) Fixed delay between bullets
+* 3884eab (origin/master, origin/HEAD) Add color
+* 3e42136 now using requestAnimationFrame
+* 4035769 frame interval was set wrong after game was paused
+* 25ede83 a couple missing ends with the ipad version
+* df03538 I can't spell 'screen' apparently :)
+| * 354dfdd (origin/coins) Make ships able to spawn on coins
+| * 0c6daf1 Make it possible to collect coins
+| * a3c0ae4 Create helper functions
+| * 656b02e First pass at adding coins
+|/  
+* b0678b1 Revert controls
+
+Instructions for Lesson 3: Quiz 19 are unclear from where you are answering the questions.  I had to watch it a couple times to determine where the question was relative to (meaning confusing as posed).
+
+One more inconsistency, at top title is "Lesson 3" at the end has "35. Lesson 2 Summary", this is one of several inconsistent references to Lesson 2 in Lesson 3
+
+git checkout -b <branchname> = is really two commands, create new branch "git branch <branchname>" and "git checkout <branchname>", so you both create and checkout the new branch
+
+How do the diagrams help you visualize the branch structure?
+	They make it clearer what is happening in logic.
+
+git gc = cleans up orphan branches which were never named and are effectively unreachable
+
+automerge strategy: 
+	1. if originally in the file and in both copies, then keep it.  (usually most of the lines)
+	2. if originally in the file, but one branch removed it, then remove it.
+	3. if not originally in the file, but one branch added, it, then add it.
+	4. if both versions changed the same line, then unknown what to do so ask.
+
+to merge a branch (labelled coins) to master (trunk) do these commands in order
+	git branch = confirm I am on master branch
+	git branch master = if needed to get onto master branch
+	git merge coins = automerges coins code to the currently checked out branch master (might need to add -m "message"), this is also equivalent of git merge master coins, but master is unnecessary
+	(optional) git branch -d coins (removes label from merged branch while keeping each of the commits of the coins branch) 
+
+if get error: CONFLICT (content): Merge conflict in ....  Automatic merge failed...
+	git merge --abort = restore files to their state before you started the merge
+	git log = to determine what is being merged
+	git diff <commit1> <commit2> = to see what changed
+	edit the files to fix issues which need fixing so the conflicted lines are exactly equal (including whitespace) with the code as you want it in the final version
+	git merge <branch> = restart the merge process
+
+
+git show <commit id> = shows the comparison between a specific commit id and the parent of this id, note, git log will show commits by date (not by branch) so if you diff sequential check-ins off, they might be off of different branches and would then show the difference between these branches rather then between the child branch and its parent.
+
+Great article for how to deal with file endings: https://help.github.com/articles/dealing-with-line-endings/#platform-all
+
+	git config --global core.autocrlf true = run on windows machine to properly set line ending for CRLF
+	git config --global core.autocrlf input = run on linux or mac to properly set the line ending for CRLF
+
+	.gitattributes = file used to set the default for whole repository regardless of OS used, sample file:
+		# Set the default behavior, in case people don't have core.autocrlf set.
+		* text=auto
+
+		# Explicitly declare text files you want to always be normalized and converted
+		# to native line endings on checkout.
+		*.c text
+		*.h text
+
+		# Declare files that will always have CRLF line endings on checkout.
+		*.sln text eol=crlf
+
+		# Denote all files that are truly binary and should not be modified.
+		*.png binary
+		*.jpg binary
+
+	The best way to automatically configure your repository's line endings is to first backup your files with Git, delete every file in your repository (except the .git directory), and then restore the files all at once.
+
+	Save your current files in Git, so that none of your work is lost.
+	git add . -u
+	git commit -m "Saving files before refreshing line endings"
+	
+	Remove the index and force Git to rescan the working directory.
+	rm .git/index
+
+	Rewrite the Git index to pick up all the new line endings.
+	git reset
+
+	Show the rewritten, normalized files.
+	git status
+
+	Add all your changed files back, and prepare them for a commit. This is your chance to inspect which files, if any, were unchanged.
+	git add -u
+	# It is perfectly safe to see a lot of messages here that read
+	# "warning: CRLF will be replaced by LF in file."
+
+	Rewrite the .gitattributes file.
+	git add .gitattributes
+
+	Commit the changes to your repository.
+	git commit -m "Normalize all the line endings"
+
+What is the result of merging two branches together? Why do we represent it in the diagram the way we do?
+	Merges the code logically in the branches down to a single code base merging the changes together.
+	We diagram as we do to show the logical merging of the logic into a single stream.
+
+Diagramming tools:
+	https://www.gliffy.com/
+	https://yuml.me/diagram/activity/draw
+
+What are the pros and cons of Git’s automatic merging vs. always doing merges manually?
+	The pros are it makes merging easier and is usually correct.  The con is it might automatically make a mistake like adding a function which doesn't create a conflict because it is new code, but could create dead code not easily found if the call to it was automatically or manually removed during the merge process.
+
