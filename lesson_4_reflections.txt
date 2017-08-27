@@ -1,0 +1,5 @@
+git remote = will either tell you the remote repositories connected with a local git repository (no args) or with args (will create a remote repository link)
+git remote add origin https://github.com/dmdietz75069/Udacity-HowToUseGitAndGitHub.git
+git remote -v = gives remote 
+git push origin <branch> to push
+
