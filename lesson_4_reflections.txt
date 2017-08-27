@@ -3,3 +3,6 @@ git remote add origin https://github.com/dmdietz75069/Udacity-HowToUseGitAndGitH
 git remote -v = gives remote 
 git push origin <branch> to push
 
+When would you want to use a remote repository rather than keeping all your work local?
+  If you wanted to share and collaborate on your repository with the world you could create a public remote repository, and if you wanted to collaborate with a restricted group of users, you could make a private remote repository.
+  
