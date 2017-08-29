@@ -1,8 +1,56 @@
 git remote = will either tell you the remote repositories connected with a local git repository (no args) or with args (will create a remote repository link)
 git remote add origin https://github.com/dmdietz75069/Udacity-HowToUseGitAndGitHub.git
 git remote -v = gives remote 
-git push origin <branch> to push
+git push origin <branch> = to push branch from remote named origin for this repository.
 
 When would you want to use a remote repository rather than keeping all your work local?
-  If you wanted to share and collaborate on your repository with the world you could create a public remote repository, and if you wanted to collaborate with a restricted group of users, you could make a private remote repository.
+	If you wanted to share and collaborate on your repository with the world you could create a public remote repository, and if you wanted to collaborate with a restricted group of users, you could make a private remote repository.
   
+git pull origin <branch> = to pull branch from remote named origin for this repository.
+
+Why might you want to always pull changes manually rather than having Git automatically stay up-to-date with your remote repository?
+	If someone else made a change in the remote repository which breaks the build or are incompatible with your current build, then you would not want your repository automatically updated for you.
+
+git clone <GitHub_Git_URL> = clones remote GitHub repository and automatically sets up source URL as remote origin repository
+git clone https://github.com/dmdietz75069/recipes.git
+git remote -v = tells details of remote repository tied to this local repository
+
+Describe the differences between forks, clones, and branches. When would you use one instead of another?
+	Branch is a separate stream of work separate from the main trunk.
+	Clone is a copy of a repository which can be local or remote.
+	Fork is a GitHub concept which is like a server-side clone of a GitHub repository with links back to the original repository, but with separate streams of work on all branches from the moment of forking.
+
+origin/master = master on the remote origin repository
+master = local master 
+
+git fetch origin = downloads any changes on the remote origin repository to the local (creating branch without merging)
+
+git merge master origin/master = (after git fetch) merges the latest version (origin/master's HEAD) from remote origin/master with the local master latest version (local/master's HEAD)
+
+git pull origin master = git fetch origin + git merge master origin/master = download the latest remote version HEAD and merge it with the local versio HEAD
+
+What is the benefit of having a copy of the last known state of the remote stored locally?
+	You have some idea what has changed on the remote repository as you have worked on the local.
+
+How would you collaborate without using Git or GitHub? What would be easier, and what would be harder?
+	Easier to collaborate because the alternative is manual.  But this now means merging could be more frequent as change could occur more quickly.
+
+Resolving mege requests, edit the document to resolve the merge solution, and push the edited document.
+
+Final Concept map: https://www.udacity.com/wiki/w/image/view?key=agpzfnVkYWNpdHl1chYLEglXaWtpSW1hZ2UYgIDgioaL4goM
+
+When would you want to make changes in a separate branch rather than directly in master? What benefits does each approach have?
+	In general, you should be making any sort of complex change or change which is experimental or change which might take time to complete on a separate branch so one can easily switch on and off of it.  A trivial change is like a spelling correction or something which is immediate and likely causes no conflicts.
+
+Keeping a folk up to date
+	git checkout <new branch>
+	git merge master <new branch>
+	if conflict {
+		get add <fixed_merged_file>
+		git add <fixed_merged_file>
+		git commit
+	}
+	git push origin <new branch>
+	git checkout master
+	git push 
+	<request push>
